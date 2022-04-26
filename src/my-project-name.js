@@ -1,1 +1,5 @@
-module.exports = 123
+module.exports = {
+  sum:function(a,b){
+    return a + b
+  }
+}
