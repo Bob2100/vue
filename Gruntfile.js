@@ -4,13 +4,17 @@ module.exports = function (grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     uglify: {
+      foo: {
+        src: 'src/<%= pkg.version %>.js',
+        dest: 'build/<%= pkg.version %>.min.js'
+      },
       options: {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
       },
-      build: {
+      buildp: {
         src: 'src/<%= pkg.name %>.js',
         dest: 'build/<%= pkg.name %>.min.js'
-      }
+      },
     }
   });
 
@@ -21,7 +25,7 @@ module.exports = function (grunt) {
   // grunt.registerTask('default', ['uglify']);
 
   // A very basic default task.
-  grunt.registerTask('default', 'Log some stuff.', function() {
+  grunt.registerTask('default', 'Log some stuff.', function () {
     grunt.log.write('Logging some stuff...').ok();
   });
 
