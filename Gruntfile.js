@@ -1,50 +1,23 @@
-module.exports = function( grunt ) {
+module.exports = function (grunt) {
 
-    grunt.initConfig({
+  // Project configuration.
+  grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+    uglify: {
+      options: {
+        banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+      },
+      build: {
+        src: 'src/<%= pkg.name %>.js',
+        dest: 'build/<%= pkg.name %>.min.js'
+      }
+    }
+  });
 
-        component_build: {
-            build: {
-                output: './dist/',
-                name: 'element',
-                styles: false,
-                scripts: true,
-                verbose: true
-            }
-        },
+  // Load the plugin that provides the "uglify" task.
+  grunt.loadNpmTasks('grunt-contrib-uglify');
 
-        jshint: {
-            build: {
-                src: ['src/**/*.js'],
-                options: {
-                    jshintrc: "./.jshintrc"
-                }
-            }
-        },
+  // Default task(s).
+  grunt.registerTask('default', ['uglify']);
 
-        mocha: {
-            build: {
-                src: ['test/test.html'],
-                options: {
-                    reporter: 'Spec',
-                    run: true
-                }
-            }
-        },
-
-        watch: {
-            component: {
-                files: ['src/**/*.js', 'component.json'],
-                tasks: 'component_build'
-            }
-        }
-
-    })
-
-    grunt.loadNpmTasks( 'grunt-contrib-watch' )
-    grunt.loadNpmTasks( 'grunt-contrib-jshint' )
-    grunt.loadNpmTasks( 'grunt-component-build' )
-    grunt.loadNpmTasks( 'grunt-mocha' )
-    grunt.registerTask( 'test', ['mocha'] )
-    grunt.registerTask( 'default', ['jshint', 'component_build', 'mocha'] )
-    
-}
+};
